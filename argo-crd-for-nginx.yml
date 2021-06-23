@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-alpine 
+  namespace: argocd
+spec:
+  destination:
+    namespace: demo
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: nginx-manifest
+    repoURL: https://github.com/abhishek3100/python-helloworld 
+    targetRevision: HEAD
+  syncPolicy: {}
