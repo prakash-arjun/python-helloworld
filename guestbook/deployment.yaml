@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook-arjun
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: guestbook-arjun
+  template:
+    metadata:
+      labels:
+        app: guestbook-arjun
+    spec:
+      containers:
+      - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
+        name: guestbook-aejun
+        ports:
+        - containerPort: 80
+        env:
+        - name: NO_PROXY
+          value: argocd-repo-server,argocd-application-controller,argocd-metrics,argocd-server,argocd-server-metrics,argocd-redis,10.0.0.0/8
+        - name: HTTP_PROXY
+          value: http://16.85.88.10:8080
+        - name: HTTPS_PROXY
+          value: http://16.85.88.10:8080
